@@ -1,19 +1,48 @@
 aid: likeable-local
 name: Likeable Local
-description: Likeable Local is a company surfaced as a portfolio company of 500-global and added to the
-  API Evangelist network as a stub for enrichment. This profile is a lead awaiting the enrichment pipeline.
+description: >-
+  Likeable Local is a social media marketing company that now operates publicly as Storytellit —
+  likeablelocal.com and www.likeablelocal.com both redirect to storytellit.com, while the product
+  application at app.likeablelocal.com and app.storytellit.com still identifies itself as "Likeable
+  Local" in its web app manifest. Storytellit sells social media management as a white-label service
+  to digital agencies — strategy, custom content creation and publishing, paid social advertising,
+  lead capture, and monthly performance reporting for the agency's clients, across verticals including
+  dental, medical, legal, real estate, insurance, finance, eCommerce, and local business. The company
+  is based in Portland, Maine, and was surfaced in the API Evangelist network as a 500 Global
+  portfolio company. As of this enrichment pass Likeable Local / Storytellit publishes no public API,
+  no developer portal, no API documentation, and no machine-readable specification; the public web
+  surface is a four-page marketing site plus a private, login-gated React application.
 url: https://raw.githubusercontent.com/api-evangelist/likeable-local/refs/heads/main/apis.yml
+accessModel:
+  pricing: unknown
+  onboarding: unknown
+  trial: false
+  try_now: false
+  public: false
+  label: Unknown
+  confidence: low
+  source: []
+  generated: '2026-07-22'
+  method: derived
+image: https://app.storytellit.com/apple-touch-icon.png
 x-type: company
 x-source: vc-portfolio
 x-backed-by:
 - 500-global
 x-tier: stub
-x-tier-reason: portfolio-lead
+x-tier-reason: no-public-api
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-19'
 tags:
 - Company
+- Social Media
+- Marketing
+- Social Media Management
+- Advertising
+- Small Business
+- Agencies
+- SaaS
 apis: []
 maintainers:
 - FN: Kin Lane
@@ -23,3 +52,20 @@ maintainers:
 common:
 - type: Website
   url: https://storytellit.com
+- type: Login
+  url: https://app.storytellit.com/
+- type: Support
+  url: https://storytellit.com/contact/
+- type: PrivacyPolicy
+  url: https://storytellit.com/privacy-policy/
+- type: GitHubOrganization
+  url: https://github.com/LikeableLocal
+- type: DomainSecurity
+  url: security/likeable-local-domain-security.yml
+- type: LLMsTxt
+  url: llms/likeable-local-llms.txt
+x-enrichment:
+  date: '2026-07-19'
+  status: backfilled
+  pass: local-v1
+  note: backfilled from .gitignore signal + verified work evidence
