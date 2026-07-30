@@ -1,0 +1,20 @@
+generated: '2026-07-19'
+method: searched
+source: live probe of https://storytellit.com/.well-known/*
+host: https://storytellit.com
+result: none
+note: >-
+  No .well-known discovery documents are published on the Likeable Local / Storytellit web surface.
+  Recorded so future enrichment rounds do not re-probe blindly. No WellKnown or SecurityTxt pointer is
+  wired into apis.yml because nothing was found.
+documents:
+- path: /.well-known/security.txt
+  status: 404
+- path: /.well-known/openid-configuration
+  status: 404
+- path: /.well-known/oauth-authorization-server
+  status: 404
+- path: /.well-known/api-catalog
+  status: 404
+- path: /.well-known/ai-plugin.json
+  status: 404

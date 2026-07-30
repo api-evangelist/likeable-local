@@ -1,0 +1,29 @@
+# Likeable Local
+
+> Likeable Local is a social media marketing company operating publicly as Storytellit. It sells
+> white-label social media management to digital agencies — strategy, content creation and publishing,
+> paid social advertising, lead capture, and monthly reporting. Both likeablelocal.com and
+> www.likeablelocal.com redirect to storytellit.com; the login-gated product application at
+> app.storytellit.com and app.likeablelocal.com still identifies itself as "Likeable Local".
+
+## APIs
+
+Likeable Local / Storytellit publishes no public API, developer portal, API documentation, or
+machine-readable API specification as of 2026-07-19. There is no OpenAPI, AsyncAPI, GraphQL schema,
+webhook catalog, SDK, CLI, or MCP server to reference.
+
+## Company
+
+- [Storytellit website](https://storytellit.com): Marketing site for the company.
+- [How it works](https://storytellit.com/how-it-works/): The agency partnership process.
+- [Team](https://storytellit.com/team/): Company team page.
+- [Contact](https://storytellit.com/contact/): Request information / support contact.
+- [Privacy policy](https://storytellit.com/privacy-policy/): Published privacy policy.
+- [Application login](https://app.storytellit.com/): Private, login-gated product application.
+- [GitHub organization](https://github.com/LikeableLocal): Four public JavaScript repositories, mostly forks; no API artifacts.
+
+## API Evangelist artifacts
+
+- [apis.yml](https://raw.githubusercontent.com/api-evangelist/likeable-local/refs/heads/main/apis.yml): APIs.json profile for this provider.
+- [Domain security](https://raw.githubusercontent.com/api-evangelist/likeable-local/refs/heads/main/security/likeable-local-domain-security.yml): Probed TLS/HSTS/DNS posture for storytellit.com.
+- [Well-known probe](https://raw.githubusercontent.com/api-evangelist/likeable-local/refs/heads/main/well-known/likeable-local-well-known.yml): Recorded negative result for /.well-known/ discovery documents.
