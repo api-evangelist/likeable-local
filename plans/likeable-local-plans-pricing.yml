@@ -1,0 +1,25 @@
+generated: '2026-08-12'
+method: searched
+source: https://storytellit.com/
+plan_count: 0
+currency: null
+plans: []
+note: >-
+  Likeable Local / Storytellit publishes no pricing or plans of any kind. The entire public web
+  surface is four pages — the sitemap at https://storytellit.com/sitemap.xml lists exactly /, /team/,
+  /how-it-works/, /contact/ — and /pricing/ and /plans/ both return 404. The homepage carries no
+  price, no tier, no rate card and no revenue-share figure; the only commercial call to action is
+  "Request Info" / "Free Consultation", which routes to https://storytellit.com/contact/. The product
+  is sold as a white-label service to digital agencies through a sales conversation, so there is no
+  plan structure to record. plan_count is 0 because that is the measured value, not because the page
+  was unreachable. No `type: Pricing` pointer is wired into apis.yml — there is no pricing page to
+  point at.
+evidence:
+- url: https://storytellit.com/pricing/
+  status: 404
+- url: https://storytellit.com/plans/
+  status: 404
+- url: https://storytellit.com/sitemap.xml
+  status: 200
+- url: https://storytellit.com/contact/
+  status: 200

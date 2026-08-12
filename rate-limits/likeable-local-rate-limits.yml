@@ -1,0 +1,29 @@
+generated: '2026-08-12'
+method: probed
+source: >-
+  live unauthenticated responses from https://api.storytellit.com plus a search of the four-page
+  storytellit.com web surface
+limit_count: 0
+limits: []
+headers: []
+note: >-
+  No rate limits are documented, because nothing about this API is documented — there is no developer
+  portal, reference, or specification. The limits were also probed for at runtime: unauthenticated
+  responses from https://api.storytellit.com carry no X-RateLimit-*, no RateLimit-*, and no
+  Retry-After header. The only rate-limit-adjacent runtime signal the API emits is an x-response-time
+  header and AWS ALB session-affinity cookies (AWSALB / AWSALBCORS), neither of which tells a caller
+  anything about a quota. limit_count is 0 as a measured result, not as a placeholder. An agent has
+  no runtime budget signal to work from on this surface.
+observed_response_headers:
+- x-powered-by
+- x-response-time
+- etag
+- vary
+- access-control-allow-credentials
+- access-control-allow-methods
+- set-cookie
+evidence:
+- url: https://api.storytellit.com/
+  status: 404
+- url: https://api.storytellit.com/users
+  status: 401

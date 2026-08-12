@@ -1,20 +1,144 @@
-generated: '2026-07-19'
-method: searched
-source: live probe of https://storytellit.com/.well-known/*
-host: https://storytellit.com
+generated: '2026-08-12'
+method: probed
+source: >-
+  live HTTP probes of /.well-known/* on every Likeable Local / Storytellit host, including the
+  production API host api.storytellit.com discovered in this round
+hosts:
+- https://storytellit.com
+- https://app.storytellit.com
+- https://api.storytellit.com
+- https://api.likeablelocal.com
+- https://app.likeablelocal.com
 result: none
 note: >-
-  No .well-known discovery documents are published on the Likeable Local / Storytellit web surface.
-  Recorded so future enrichment rounds do not re-probe blindly. No WellKnown or SecurityTxt pointer is
-  wired into apis.yml because nothing was found.
+  No .well-known discovery document is published on ANY Likeable Local / Storytellit host. This round
+  widened the probe beyond the marketing site to the login-gated application hosts and to the
+  production API host (api.storytellit.com / api.likeablelocal.com, both CNAMEd to the same AWS ELB
+  prod-api-likeablelocal-1606450325.us-east-2.elb.amazonaws.com) — every path 404s there too. The API
+  host returns a genuine JSON 404 envelope from its Express/FeathersJS router, so these are real
+  negatives rather than an SPA catch-all; the marketing site and the app return their HTML shell with
+  a correct 404 status, which is also a miss and is recorded as such. No WellKnown, SecurityTxt,
+  OAuthMetadata or AgentCard pointer is wired into apis.yml, because a pointer would assert the
+  provider serves a surface it does not serve.
 documents:
-- path: /.well-known/security.txt
+- host: https://storytellit.com
+  path: /.well-known/security.txt
   status: 404
-- path: /.well-known/openid-configuration
+  content_type: text/html
+- host: https://storytellit.com
+  path: /.well-known/openid-configuration
   status: 404
-- path: /.well-known/oauth-authorization-server
+  content_type: text/html
+- host: https://storytellit.com
+  path: /.well-known/oauth-authorization-server
   status: 404
-- path: /.well-known/api-catalog
+  content_type: text/html
+- host: https://storytellit.com
+  path: /.well-known/oauth-protected-resource
   status: 404
-- path: /.well-known/ai-plugin.json
+  content_type: text/html
+- host: https://storytellit.com
+  path: /.well-known/api-catalog
   status: 404
+  content_type: text/html
+- host: https://storytellit.com
+  path: /.well-known/ai-plugin.json
+  status: 404
+  content_type: text/html
+- host: https://storytellit.com
+  path: /.well-known/agent-card.json
+  status: 404
+  content_type: text/html
+- host: https://storytellit.com
+  path: /.well-known/agent.json
+  status: 404
+  content_type: text/html
+- host: https://api.storytellit.com
+  path: /.well-known/security.txt
+  status: 404
+  content_type: application/json
+- host: https://api.storytellit.com
+  path: /.well-known/openid-configuration
+  status: 404
+  content_type: application/json
+- host: https://api.storytellit.com
+  path: /.well-known/oauth-authorization-server
+  status: 404
+  content_type: application/json
+- host: https://api.storytellit.com
+  path: /.well-known/oauth-protected-resource
+  status: 404
+  content_type: application/json
+- host: https://api.storytellit.com
+  path: /.well-known/api-catalog
+  status: 404
+  content_type: application/json
+- host: https://api.storytellit.com
+  path: /.well-known/ai-plugin.json
+  status: 404
+  content_type: application/json
+- host: https://api.storytellit.com
+  path: /.well-known/agent-card.json
+  status: 404
+  content_type: application/json
+- host: https://api.storytellit.com
+  path: /.well-known/agent.json
+  status: 404
+  content_type: application/json
+- host: https://api.likeablelocal.com
+  path: /.well-known/security.txt
+  status: 404
+  content_type: application/json
+- host: https://api.likeablelocal.com
+  path: /.well-known/oauth-authorization-server
+  status: 404
+  content_type: application/json
+- host: https://api.likeablelocal.com
+  path: /.well-known/oauth-protected-resource
+  status: 404
+  content_type: application/json
+- host: https://api.likeablelocal.com
+  path: /.well-known/agent-card.json
+  status: 404
+  content_type: application/json
+- host: https://api.likeablelocal.com
+  path: /.well-known/agent.json
+  status: 404
+  content_type: application/json
+- host: https://app.storytellit.com
+  path: /.well-known/security.txt
+  status: 404
+  content_type: text/html
+- host: https://app.storytellit.com
+  path: /.well-known/openid-configuration
+  status: 404
+  content_type: text/html
+- host: https://app.storytellit.com
+  path: /.well-known/agent-card.json
+  status: 404
+  content_type: text/html
+- host: https://app.storytellit.com
+  path: /.well-known/agent.json
+  status: 404
+  content_type: text/html
+- host: https://app.likeablelocal.com
+  path: /.well-known/agent-card.json
+  status: 404
+  content_type: text/html
+- host: https://app.likeablelocal.com
+  path: /.well-known/agent.json
+  status: 404
+  content_type: text/html
+also_probed:
+- url: https://storytellit.com/llms.txt
+  status: 404
+- url: https://app.storytellit.com/llms.txt
+  status: 404
+- url: https://api.storytellit.com/llms.txt
+  status: 404
+- url: https://storytellit.com/robots.txt
+  status: 200
+  note: served but zero bytes — an empty robots.txt, no directives and no sitemap reference
+- url: https://storytellit.com/sitemap.xml
+  status: 200
+  note: four URLs total — /, /team/, /how-it-works/, /contact/

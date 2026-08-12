@@ -11,7 +11,11 @@ description: >-
   is based in Portland, Maine, and was surfaced in the API Evangelist network as a 500 Global
   portfolio company. As of this enrichment pass Likeable Local / Storytellit publishes no public API,
   no developer portal, no API documentation, and no machine-readable specification; the public web
-  surface is a four-page marketing site plus a private, login-gated React application.
+  surface is a four-page marketing site plus a private, login-gated React application. A production
+  API does exist but is an internal application backend rather than a developer product —
+  api.storytellit.com and api.likeablelocal.com both resolve to the same Amazon load balancer and run
+  Express over FeathersJS, and every service path, including a GraphQL endpoint, rejects anonymous
+  callers with HTTP 401 while serving no specification and no documentation of any kind.
 url: https://raw.githubusercontent.com/api-evangelist/likeable-local/refs/heads/main/apis.yml
 accessModel:
   pricing: unknown
@@ -33,7 +37,7 @@ x-tier: stub
 x-tier-reason: no-public-api
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-19'
+modified: '2026-08-12'
 tags:
 - Company
 - Social Media
@@ -64,8 +68,34 @@ common:
   url: security/likeable-local-domain-security.yml
 - type: LLMsTxt
   url: llms/likeable-local-llms.txt
+- type: Plans
+  url: plans/likeable-local-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/likeable-local-rate-limits.yml
 x-enrichment:
-  date: '2026-07-19'
-  status: backfilled
+  date: '2026-08-12'
+  status: minimal
+  artifacts_added: 3
   pass: local-v1
-  note: backfilled from .gitignore signal + verified work evidence
+  note: >-
+    Contract discovery found a live but wholly private FeathersJS API backend at
+    api.storytellit.com / api.likeablelocal.com. No specification, documentation, .well-known
+    document, agent card, package, or pricing exists on any host.
+x-coverage:
+  state: gated
+  reason: customer-only-docs
+  detail: >-
+    A live production API answers at api.storytellit.com and api.likeablelocal.com — the same host the
+    company's own app bundle calls — but it is the login-gated Storytellit application's private
+    backend: /users returns 401 NotAuthenticated, /graphql refuses introspection with its own 401, and
+    no reference, portal, or specification is published for it anywhere, not even to customers.
+  evidence:
+  - url: https://api.storytellit.com/users
+    status: 401
+  - url: https://api.storytellit.com/graphql
+    status: 401
+  - url: https://api.storytellit.com/openapi.json
+    status: 404
+  - url: https://storytellit.com/developers/
+    status: 404
+  checked: '2026-08-12'

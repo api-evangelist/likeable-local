@@ -2,15 +2,38 @@
 
 > Likeable Local is a social media marketing company operating publicly as Storytellit. It sells
 > white-label social media management to digital agencies — strategy, content creation and publishing,
-> paid social advertising, lead capture, and monthly reporting. Both likeablelocal.com and
-> www.likeablelocal.com redirect to storytellit.com; the login-gated product application at
-> app.storytellit.com and app.likeablelocal.com still identifies itself as "Likeable Local".
+> paid social advertising, lead capture, and monthly reporting for the agency's clients. Both
+> likeablelocal.com and www.likeablelocal.com redirect to storytellit.com; the login-gated product
+> application at app.storytellit.com and app.likeablelocal.com still identifies itself as "Likeable
+> Local" in its web app manifest and meta tags. The company is based in Portland, Maine.
 
 ## APIs
 
-Likeable Local / Storytellit publishes no public API, developer portal, API documentation, or
-machine-readable API specification as of 2026-07-19. There is no OpenAPI, AsyncAPI, GraphQL schema,
-webhook catalog, SDK, CLI, or MCP server to reference.
+Likeable Local / Storytellit publishes **no public API**: no developer portal, no API reference, no
+machine-readable specification (OpenAPI, AsyncAPI, GraphQL SDL, Postman collection, JSON Schema), no
+SDK, no CLI, no webhook catalog, no MCP server, and no A2A agent card. Nothing in this profile should
+be read as an API a third party can integrate with.
+
+A production API **does exist**, but it is a private application backend rather than a developer
+product. As of 2026-08-12:
+
+- `https://api.storytellit.com` and `https://api.likeablelocal.com` are live and resolve to the same
+  Amazon load balancer (`prod-api-likeablelocal-1606450325.us-east-2.elb.amazonaws.com`).
+- The stack is Express fronting FeathersJS — errors return the FeathersJS envelope
+  `{name, message, code, className, errors}`.
+- Every service path rejects anonymous callers with HTTP 401 `NotAuthenticated`. A GraphQL endpoint
+  at `/graphql` exists and refuses introspection with its own 401.
+- No specification is served: `/openapi.json`, `/swagger.json`, `/api-docs`, `/docs` and `/redoc` all
+  return the API's JSON 404.
+- No `/.well-known/` document is served on any host, and no `llms.txt` is published by the company.
+
+There is no way for a developer to obtain credentials — no API sign-up, no key issuance, no
+documentation, and no mention of an API anywhere on the company's public web surface.
+
+## Commercial
+
+No pricing is published. The public site is four pages and lists no plans, tiers, or rates; the
+commercial motion is "Request Info" / "Free Consultation" into a sales conversation.
 
 ## Company
 
@@ -20,10 +43,15 @@ webhook catalog, SDK, CLI, or MCP server to reference.
 - [Contact](https://storytellit.com/contact/): Request information / support contact.
 - [Privacy policy](https://storytellit.com/privacy-policy/): Published privacy policy.
 - [Application login](https://app.storytellit.com/): Private, login-gated product application.
-- [GitHub organization](https://github.com/LikeableLocal): Four public JavaScript repositories, mostly forks; no API artifacts.
+- [GitHub organization](https://github.com/LikeableLocal): Four public JavaScript repositories —
+  `javascript`, `llchallenge`, `material-ui`, `react-redux-universal-hot-example` — mostly forks, no
+  API artifacts, no published packages.
 
 ## API Evangelist artifacts
 
 - [apis.yml](https://raw.githubusercontent.com/api-evangelist/likeable-local/refs/heads/main/apis.yml): APIs.json profile for this provider.
-- [Domain security](https://raw.githubusercontent.com/api-evangelist/likeable-local/refs/heads/main/security/likeable-local-domain-security.yml): Probed TLS/HSTS/DNS posture for storytellit.com.
-- [Well-known probe](https://raw.githubusercontent.com/api-evangelist/likeable-local/refs/heads/main/well-known/likeable-local-well-known.yml): Recorded negative result for /.well-known/ discovery documents.
+- [Authentication probe](https://raw.githubusercontent.com/api-evangelist/likeable-local/refs/heads/main/authentication/likeable-local-authentication.yml): What an unauthenticated probe of the private API backend observed.
+- [Domain security](https://raw.githubusercontent.com/api-evangelist/likeable-local/refs/heads/main/security/likeable-local-domain-security.yml): Probed TLS/HSTS/DNS posture across all company hosts.
+- [Well-known probe](https://raw.githubusercontent.com/api-evangelist/likeable-local/refs/heads/main/well-known/likeable-local-well-known.yml): Recorded negative result for /.well-known/ discovery documents on every host.
+- [Plans](https://raw.githubusercontent.com/api-evangelist/likeable-local/refs/heads/main/plans/likeable-local-plans-pricing.yml): Recorded zero published plans.
+- [Rate limits](https://raw.githubusercontent.com/api-evangelist/likeable-local/refs/heads/main/rate-limits/likeable-local-rate-limits.yml): Recorded zero published or observed rate-limit signals.

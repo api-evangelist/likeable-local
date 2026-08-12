@@ -1,0 +1,88 @@
+generated: '2026-08-12'
+method: probed
+source: >-
+  live unauthenticated HTTP probes of https://api.storytellit.com and https://api.likeablelocal.com,
+  plus the publicly served application bundle
+  https://app.storytellit.com/dist/main-c348e06a35af2239d3e7.js which names the API base
+no_pointer: true
+no_pointer_reason: >-
+  NO `type: Authentication` pointer is wired into apis.yml. The apis.io rating check
+  `authentication_documented` reads `common[].type includes "Authentication"` and asserts that the
+  PROVIDER documents authentication as its own topic. Likeable Local / Storytellit publishes no
+  authentication documentation of any kind. This file records what an unauthenticated probe observed
+  about a private backend, which is not the same fact, and wiring the pointer would credit the
+  company with a document it has never published.
+summary: >-
+  Likeable Local / Storytellit runs a real, live, production API — it is simply not a developer
+  product. api.storytellit.com and api.likeablelocal.com resolve to the same AWS application load
+  balancer (prod-api-likeablelocal-1606450325.us-east-2.elb.amazonaws.com) and serve the backend for
+  the login-gated Storytellit / Likeable Local web application. Every service path answers 401 to an
+  anonymous caller. There is no developer portal, no reference, no machine-readable specification,
+  no key issuance flow, and no public sign-up for API access.
+api_surface:
+  discovered: '2026-08-12'
+  base_urls:
+  - https://api.storytellit.com
+  - https://api.likeablelocal.com
+  ownership_evidence: >-
+    The company's own application bundle, served from app.storytellit.com, hard-codes
+    https://api.storytellit.com as its API base and https://api.storytellit.com/social_login/ as its
+    social-login entry point. Both API hostnames CNAME to a single Amazon ELB whose name embeds the
+    company's own product slug (prod-api-likeablelocal). Ownership is not in question.
+  framework_fingerprint: >-
+    Express (x-powered-by: Express) fronting FeathersJS — every error body is the FeathersJS envelope
+    {name, message, code, className, errors}, and 404s report className "not-found" while 401s report
+    className "not-authenticated".
+  public_documentation: none
+  public_specification: none
+  status: private-backend
+schemes:
+- id: session-token
+  type: unknown
+  in: unknown
+  observed: >-
+    Anonymous requests to service paths are rejected with HTTP 401 and the body
+    {"name":"NotAuthenticated","message":"You are not authenticated.","code":401,
+    "className":"not-authenticated","errors":{}} — the FeathersJS authentication hook's default
+    rejection. The credential format (JWT bearer, cookie, or Feathers accessToken) is NOT observable
+    without an account, so it is recorded as unknown rather than guessed.
+  evidence:
+    url: https://api.storytellit.com/users
+    status: 401
+- id: social-login
+  type: oauth2-third-party
+  observed: >-
+    The application bundle references https://api.storytellit.com/social_login/ and the application
+    shell initializes the Facebook JavaScript SDK with a Facebook app id, consistent with the product
+    connecting client Facebook, Instagram and LinkedIn accounts for publishing. This is the company
+    consuming third-party social APIs, not the company issuing credentials to third parties.
+  evidence:
+    url: https://app.storytellit.com/
+    status: 200
+graphql:
+  endpoint: https://api.storytellit.com/graphql
+  status: gated
+  introspection: refused
+  observed: >-
+    Both GET and a POST introspection query {__schema{queryType{name}}} return HTTP 401 with
+    {"error":{"ok":false,"message":"Error: User object is required A","data":{}}} — a distinct
+    envelope from the REST services, so a GraphQL layer is present but the schema cannot be read
+    anonymously. NO SDL has been captured or inferred; nothing about the graph's shape is recorded
+    here because nothing about it was observable.
+  evidence:
+    url: https://api.storytellit.com/graphql
+    status: 401
+observed_error_envelopes:
+- status: 404
+  body: '{"name":"NotFound","message":"Page not found","code":404,"className":"not-found","errors":{}}'
+- status: 401
+  body: '{"name":"NotAuthenticated","message":"You are not authenticated.","code":401,"className":"not-authenticated","errors":{}}'
+- status: 401
+  path: /graphql
+  body: '{"error":{"ok":false,"message":"Error: User object is required A","data":{}}}'
+note: >-
+  Recorded so a later round does not repeat the discovery work, and so the profile can state honestly
+  WHY it is thin: this is not a company without an API, it is a company whose API is an internal
+  application backend it has never published, documented, or offered to developers. Nothing in this
+  file was obtained with credentials, and no attempt was made to enumerate the service surface beyond
+  the handful of conventional discovery paths every host in this pipeline is probed for.
