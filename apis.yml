@@ -17,6 +17,17 @@ description: >-
   Express over FeathersJS, and every service path, including a GraphQL endpoint, rejects anonymous
   callers with HTTP 401 while serving no specification and no documentation of any kind.
 url: https://raw.githubusercontent.com/api-evangelist/likeable-local/refs/heads/main/apis.yml
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: false
+  label: Hosted service · you call their endpoint
+  confidence: medium
+  source:
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: unknown
   onboarding: unknown
